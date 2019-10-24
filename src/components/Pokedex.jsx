@@ -9,12 +9,34 @@ export default class Pokedex extends React.Component {
         this.state = {
             pokemon: []
         }
+        this.updateName = this.updateName.bind(this)
+        this.deletePokemon = this.deletePokemon.bind(this)
     }
     
     componentDidMount(){
         axios
         .get('/api/pokemon')
         .then(res=> {
+            this.setState({
+                pokemon: res.data
+            })
+        })
+    }
+
+    updateName(id, body){
+        axios
+        .put(`/api/pokemon/${id}`, body)
+        .then(res => {
+            // console.log('test')
+            this.setState({
+            pokemon: res.data
+        })}
+        )
+    }
+
+    deletePokemon(id){
+        axios.delete(`/api/pokemon/${id}`)
+        .then(res => {
             this.setState({
                 pokemon: res.data
             })
@@ -31,7 +53,11 @@ export default class Pokedex extends React.Component {
                 </Link>
                 <h2>Pokedex</h2>
                 {this.state.pokemon.map(el => (
-                    <Pokemon pokemonObj={el} key={el.id}/>
+                    <Pokemon
+                     pokemonObj={el} key={el.id}
+                     updateNameFn={this.updateName}
+                     deleteFn={this.deletePokemon}
+                     />
                 ))}
             </div>
         )
