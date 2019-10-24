@@ -1,5 +1,6 @@
 import React from 'react'
 import Pokemon from '../components/Pokemon'
+import axios from 'axios'
 
 export default class Pokedex extends React.Component {
     constructor(){
@@ -8,11 +9,25 @@ export default class Pokedex extends React.Component {
             pokemon: []
         }
     }
+    
+    componentDidMount(){
+        axios
+        .get('/api/pokemon')
+        .then(res=> {
+            this.setState({
+                pokemon: res.data
+            })
+        })
+    }
+    
+
+
     render(){
         return(
             <div>
-                Pokedex.js
-                <Pokemon />
+                {this.state.pokemon.map(el => (
+                    <Pokemon pokemonObj={el} key={el.id}/>
+                ))}
             </div>
         )
 

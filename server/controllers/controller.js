@@ -10,6 +10,9 @@ module.exports = {
         //increment id
         id++
         //res.status(200).send updated array
-        req.status(200).send(pokemonCaught)
-    })
+        res.status(200).send(pokemonCaught)
+    },
+    getPokeDex: (req,res) => {
+        res.status(200).send(pokemonCaught)
+    }
 }

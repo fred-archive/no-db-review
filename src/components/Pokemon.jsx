@@ -9,7 +9,13 @@ export default class Pokemon extends React.Component{
     }
     render(){
         return(
-            <div>Pokemon.js</div>
+            <div>
+                <h3>{this.props.pokemonObj.name}</h3>
+                <img 
+                    src={this.props.pokemonObj.img} 
+                    alt={this.props.pokemonObj.name}
+                />
+            </div>
         )
     }
 }
